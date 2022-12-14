@@ -16,4 +16,5 @@ class PostFilter(FilterSet):
         model = Post
         fields = {
             'title': ['icontains'],
+            'text': ['icontains'],
         }
