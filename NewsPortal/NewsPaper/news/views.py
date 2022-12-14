@@ -1,24 +1,25 @@
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView,
-                                  )
-from .models import *
+from django.views.generic import (
+    ListView, DetailView, CreateView, UpdateView, DeleteView,
+)
+from .models import Post
 from .filters import PostFilter
 from .forms import PostForm
 from django.http import HttpResponse
 
 
-class AuthorList(ListView):
-    model = Author
-    context_object_name = 'Authors'
-    template_name = 'news/authors.html'
-
-
-class Post(DetailView):
+class PostList(ListView):
     model = Post
-    context_object_name = 'Post'
-    template_name = 'news/posts.html'
+    context_object_name = 'posts'
+    template_name = 'posts.html'
+
+
+class PostDetail(DetailView):
+    model = Post
+    context_object_name = 'post'
+    template_name = 'post.html'
+
 
 class PostCreate(PermissionRequiredMixin, CreateView):
     permission_required = ('news.add_post',)
@@ -26,11 +27,13 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'post_edit.html'
 
+
 class PostUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
+
 
 class PostDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('news.delete_post',)
