@@ -84,5 +84,11 @@ class CategoryListView(ListView):
         context['category'] = self.category
         return context
 
-# def index(request):
-#     return render(request, 'index.html')
+@login_required
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.add(user)
+
+    message = 'Вы успешно подписались на рассылку новостей категории'
+    return render(request, 'news/subscribe.html', {'category': category, 'message': message})
