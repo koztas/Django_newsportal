@@ -58,6 +58,10 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
+    
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
 
 
 class PostDelete(PermissionRequiredMixin, DeleteView):
