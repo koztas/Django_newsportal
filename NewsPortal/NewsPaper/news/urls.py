@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-from .views import PostDetail, PostList, PostCreate, PostUpdate, PostDelete, \
-    CategoryListView
+from .views import PostDetail, PostList, PostSearch, PostCreate, PostUpdate, PostDelete, \
+    CategoryListView, subscribe
 
 urlpatterns = [
     path('', PostList.as_view(), name='post_list'),
